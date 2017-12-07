@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <script src="/vue.js"></script>
+    <script src="http://127.0.0.1:8888/socket.io/socket.io.js"></script>
+</head>
+<body>
+欢迎您,骚年
+
+<div>
+    <p>房间列表</p>
+    <ul>
+        <li id="room_1"><a href="/room/000" target="_blank">1号房间</a></li>
+        <li id="room_2"><a href="/room/111" target="_blank">2号房间</a></li>
+        <li id="room_3"><a href="/room/222" target="_blank">3号房间</a></li>
+        <li id="room_4"><a href="/room/333" target="_blank">4号房间</a></li>
+        <li id="room_5"><a href="/room/444" target="_blank">5号房间</a></li>
+        <li id="room_6"><a href="/room/555" target="_blank">6号房间</a></li>
+        <li id="room_7"><a href="/room/666" target="_blank">7号房间</a></li>
+        <li id="room_8"><a href="/room/777" target="_blank">8号房间</a></li>
+        <li id="room_9"><a href="/room/888" target="_blank">9号房间</a></li>
+        <li id="room_10"><a href="/room/999" target="_blank">10号房间</a></li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+    // ---------创建连接-----------
+    var socket = io.connect();
+
+    socket.on('room', function (data) {
+        console.log(data)
+        socket.emit('room' , '123123123')
+    })
+
+</script>
