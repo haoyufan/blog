@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>swiper</title>
+    <style>
+        .viewport {
+            width: 900px;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        .father {
+            height: inherit;
+            transform: translate3d(0, 0, 0);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            position: absolute;
+        }
+        .father > div {
+            width: 900px;
+            height: inherit;
+            float: left;
+        }
+        .father > div:nth-child(1){
+            background: #ff3c32
+        }
+        .father > div:nth-child(2){
+            background: #68ff26
+        }
+        .father > div:nth-child(3){
+            background: #1affe4
+        }
+        .father > div:nth-child(4){
+            background: #ca1c87
+        }
+        .father > div:nth-child(5){
+            background: #493eff
+        }
+        .mother {
+            width: 30px;
+            height: inherit;
+            line-height: 300px;
+            text-align: center;
+            cursor: pointer;
+            user-select:none;
+            background: rgba(0,0,0,0.15);
+            position: absolute;top: 0;
+        } .mother.left { left: 0 } .mother.right { right: 0 }
+    </style>
+</head>
+<body>
+<div class="swiper" id="example">
+    <div class="father swiper-wrapper">
+        <div>A</div><!-- 1 -->
+        <div>B</div>
+        <div>C</div><!-- 3 -->
+        <div>D</div>
+        <div>E</div><!-- 5 -->
+    </div>
+    <div class="mother left">左</div>
+    <div class="mother right">右</div>
+</div>
+</body>
+</html>
+
+<script>
+    class Swiper{
+        constructor(option){
+            this.viewport = option.el;
+            this.speed = option.autoplay;
+            this.father = document.querySelectorAll(this.viewport)
+        }
+    }
+</script>
