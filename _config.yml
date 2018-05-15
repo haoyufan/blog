@@ -101,6 +101,6 @@ baidusitemap: # 百度站点地图
 deploy:
   type: git
   repository: # 可选择同时部署到 GitHub 和 coding 或者只部署到 Github
-    github: https://github.com/haoyufan.github.io.git
+    github: git@github.com:haoyufan/haoyufan.github.io.git
     # coding: git@git.coding.net:你的Coding名/你的Coding名.git
   branch: master
