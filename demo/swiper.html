@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>swiper</title>
     <style>
-        .viewport {
+        .swiper {
             width: 900px;
             height: 300px;
             overflow: hidden;
@@ -15,30 +15,21 @@
         }
         .father {
             height: inherit;
+            width: 500%; /* 子元素 float 无法撑开 */
             transform: translate3d(0, 0, 0);
-            transition: transform 0.3s ease-in-out;
-            display: flex;
+            transition: all 0.3s ease-in-out;
             position: absolute;
+            left: 0;
+            top: 0;
         }
         .father > div {
             width: 900px;
             height: inherit;
             float: left;
         }
-        .father > div:nth-child(1){
-            background: #ff3c32
-        }
-        .father > div:nth-child(2){
-            background: #68ff26
-        }
-        .father > div:nth-child(3){
-            background: #1affe4
-        }
-        .father > div:nth-child(4){
-            background: #ca1c87
-        }
-        .father > div:nth-child(5){
-            background: #493eff
+
+        img{
+            width: 100%;
         }
         .mother {
             width: 30px;
@@ -49,30 +40,26 @@
             user-select:none;
             background: rgba(0,0,0,0.15);
             position: absolute;top: 0;
-        } .mother.left { left: 0 } .mother.right { right: 0 }
+        }
+        .mother.left { left: 0 } .mother.right { right: 0 }
     </style>
 </head>
 <body>
 <div class="swiper" id="example">
     <div class="father swiper-wrapper">
-        <div>A</div><!-- 1 -->
-        <div>B</div>
-        <div>C</div><!-- 3 -->
-        <div>D</div>
-        <div>E</div><!-- 5 -->
+        <div class="swiper-item"><img src="https://cn.bing.com/az/hprichbg/rb/ManateeMom_EN-CN9983570199_1920x1080.jpg" alt=""></div><!-- 1 -->
+        <div class="swiper-item"><img src="https://cn.bing.com/az/hprichbg/rb/MontezumaSnowGeese_EN-CN9497504365_800x480.jpg" alt=""></div>
+        <div class="swiper-item"><img src="https://cn.bing.com/az/hprichbg/rb/Kolonihavehus_EN-CN6388656996_800x480.jpg" alt=""></div><!-- 3 -->
     </div>
     <div class="mother left">左</div>
     <div class="mother right">右</div>
 </div>
 </body>
 </html>
-
+<script src="./swiper.js"></script>
 <script>
-    class Swiper{
-        constructor(option){
-            this.viewport = option.el;
-            this.speed = option.autoplay;
-            this.father = document.querySelectorAll(this.viewport)
-        }
-    }
+    new Swiper({
+        container: document.querySelector('.swiper'),
+        speed: 3000,
+    })
 </script>
