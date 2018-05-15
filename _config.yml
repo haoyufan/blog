@@ -4,15 +4,15 @@
 
 # Site
 title: slience # 博客名
-subtitle: Stay Hungry, Stay Foolish # 副标题
+subtitle:  天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。  # 副标题
 description: 银河街角，时光路口 # 站点描述
 author: slience # 作者名
 language: zh-Hans # 语言设置
-timezone: Asia/Shanghai
+timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://lemonxq.cn # 博客所要绑定的域名，没有则不填
+url: https://haoyufan.github.io/ # 博客所要绑定的域名，没有则不填
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -86,7 +86,7 @@ search:
 feed: # RSS订阅插件
   type: atom
   path: atom.xml
-  limit: 0
+  limit: 20
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
@@ -101,6 +101,6 @@ baidusitemap: # 百度站点地图
 deploy:
   type: git
   repository: # 可选择同时部署到 GitHub 和 coding 或者只部署到 Github
-    github: git@github.com:haoyufan/haoyufan.github.io.git
+    github: https://github.com/haoyufan.github.io.git
     # coding: git@git.coding.net:你的Coding名/你的Coding名.git
   branch: master
