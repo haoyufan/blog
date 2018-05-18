@@ -1,0 +1,26 @@
+{
+"configs" : [
+  {
+"server" : "104.128.81.85",
+"server_port" : 2023,
+"password" : "sGMmzY",
+"method" : "chacha20",
+"remarks" : ""}
+,
+  {
+"server" : "47.90.104.240",
+"server_port" : 8379,
+"password" : "lvxiaobao@2017",
+"method" : "aes-256-cfb",
+"remarks" : "lvxiaobao"}
+
+],
+"strategy" : null,
+"index" : 0,
+"global" : false,
+"enabled" : true,
+"shareOverLan" : false,
+"isDefault" : false,
+"localPort" : 1080,
+"pacUrl" : null,
+"useOnlinePac" : false}
