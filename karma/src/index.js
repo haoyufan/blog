@@ -4,9 +4,20 @@ function isNum(num) {
     } else {
         return false
     }
-}
+};
+
 function add(x) {
-    return function (y) {
+    return (y) => {
         return x + y
     }
+};
+
+function add(x){
+    return(y)=>{
+        return x + y
+    }
+}
+
+export {
+    add
 }
