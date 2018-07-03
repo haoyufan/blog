@@ -7,7 +7,11 @@
     <script src="http://127.0.0.1:8888/socket.io/socket.io.js"></script>
 </head>
 <body>
-
+    <div>
+        <input type="text" id="msg" value="beyond is number one!" />
+        <button onclick="sendMsg()">send</button>
+    </div>
+    <div id="output"></div>
 </body>
 </html>
 <script>
@@ -16,10 +20,18 @@
 
     var room = location.pathname.split('/');
 
-    socket.on('connect', function () {
+    socket.on('data', function () {
+    });
+
+    socket.on('room', function (data) {
+        console.log('欢迎：', data)
+    });
+
+    function sendMsg() {
+        const msg = document.getElementById("msg").value;
         socket.emit('room', {
             room: room[room.length - 1],
-            user: 'chenmo'
+            user: msg
         })
-    })
+    }
 </script>
