@@ -33,7 +33,7 @@ function getPic(next) {
       "Host": "www.zhihu.com",
       "x-udid": 'AGCiL8jElA6PThed2X73DIiS-9AGF0GTDWY=',
       "Referer": uri,
-      "cookie": cookies + meCookie
+      "cookie": cookies
     }
   }, callback)
 };
@@ -42,7 +42,7 @@ function callback(error, response, body) {
   if (error) {
     return console.log(error)
   }
-  console.log(body)
+  // console.log(body)
   // 设置翻页
   item = JSON.parse(body);
 
