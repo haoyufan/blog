@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vue.js grid component example</title>
+</head>
+<body>
+<div id="app">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+    <Child></Child>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/vue/2.5.15/vue.js"></script>
+<script>
+    let Child = {
+        data: function() {
+            return {child: '你好哈'}
+        },
+        template: '<div>{{child}}</div>'
+    }
+    new Vue({
+        el: '#app',
+        data: {
+            todos: [
+                {text: '学习 JavaScript'},
+                {text: '学习 Vue'},
+                {text: '整个牛项目'}]
+        },
+        components: {'Child': Child}
+    })
+</script>

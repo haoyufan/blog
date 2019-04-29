@@ -15,20 +15,19 @@ let mailOptions = {
     from: '"slience" <1079422762@qq.com>', // sender address
     to: 'yangxiaowei@lv-inc.com', // list of receivers
     subject: 'Hello', // Subject line
-    html: '<a href="https://www.jjj85.com">点开它</a>', // html body
-    attachments: [
-        {   // utf-8 string as an attachment
-            filename: 'index.js',
-            content: 'hello world!'
-        },
-    ]
+    html: '<a href="https://www.bilibili.com">点开它</a>', // html body
+    // attachments: [
+        // utf-8 string as an attachment
+    //     {   
+    //         filename: 'index.js',
+    //         content: 'hello world!'
+    //     },
+    // ]
 };
 
-// send mail with defined transport object
 transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
         return console.log(error);
     }
     console.log('Message sent: %s', info.messageId);
-// Message sent: <04ec7731-cc68-1ef6-303c-61b0f796b78f@qq.com>
 });

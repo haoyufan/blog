@@ -1,0 +1,125 @@
+<html>
+
+<head>
+
+  <title>AppCan API uexSensor</title>
+
+  <meta charset=utf-8>
+
+  <script>
+
+    window.uexonload = function (type) {
+
+      if (!type) {
+
+        uexWidgetOne.onError = function (opCode, errorCode, errorDesc) {
+
+          console.log(errorCode +: +errorDesc);
+
+        }
+
+        uexSensor.onAccelerometerChange = function (inX, inY, inZ) {
+
+          $$(id1).innerHTML = X = +inX + Y = + inY + Z = + inZ;
+
+        }
+
+        uexSensor.onOrientationChange = function (inX, inY, inZ) {
+
+          $$(id2).innerHTML = X = +inX + Y=+inY + Z=+inZ;
+
+        }
+
+        uexSensor.onMagneticChange = function (inX, inY, inZ) {
+
+          $$(id3).innerHTML = X = +inX + Y=+inY + Z=+inZ;
+
+        }
+
+        uexSensor.onTemperatureChange = function (inTemperature) {
+
+          $$(id4).innerHTML = inTemperature = +inTemperature;
+
+        }
+
+        uexSensor.onPressureChange = function (inPressure) {
+
+          $$(id5).innerHTML = inPressure = +inPressure;
+
+        }
+
+        uexSensor.onLightChange = function (inLight) {
+
+          $$(id6).innerHTML = inLight = +inLight;
+
+        }
+
+      }
+
+    }
+
+    function $$(id) {
+
+      return document.getElementById(id);
+
+    }
+
+    var inType = 0;
+
+    function sensorOpen(i) {
+
+      inType = i;
+
+      var inRate = 3;
+
+      uexSensor.open(i, inRate);
+
+    }
+
+    function sensorClose() {
+
+      uexSensor.close(inType);
+
+    }
+
+  </script>
+
+</head>
+
+<body>
+
+  <div>
+
+    <span>启动传感器：</span><br />
+
+    <input type=button value=加速度 onclick=sensorOpen(1);>
+
+    <span id=id1></span><br>
+
+    <input type=button value=方向 onclick=sensorOpen(2);>
+
+    <span id=id2></span><br>
+
+    <input type=button value=磁场 onclick=sensorOpen(3);>
+
+    <span id=id3></span><br>
+
+    <input type=button value=温度 onclick=sensorOpen(4);>
+
+    <span id=id4></span><br>
+
+    <input type=button value=压力 onclick=sensorOpen(5);>
+
+    <span id=id5></span><br>
+
+    <input type=button value=光度 onclick=sensorOpen(6);>
+
+    <span id=id6></span><br>
+
+    <input type=button value=关闭传感器 onclick=sensorClose();>
+
+  </div>
+
+</body>
+
+</html>
