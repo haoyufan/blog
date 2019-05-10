@@ -1,0 +1,143 @@
+<html>
+<head>
+    <style>
+        body {
+            width: 100%;
+        }
+        table {
+            border-spacing: 0px;
+        }
+        table th, table td {
+            color: white;
+            background-color: black;
+            padding: 5px;
+            border-right: 1px solid red;
+            border-bottom: 1px solid red;
+        }
+        ul {
+            position: fixed;
+            right: 10px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            box-shadow: 3px 3px 10px gray;
+            list-style: none;
+            /* 主要是取消掉左边的边距 */
+            padding: 0px;
+        }
+        ul li {
+            background: -webkit-linear-gradient(gray 90%, white 100%);
+            color: white;
+            padding: 5px 10px 5px 10px;
+        }
+        ul li:hover{
+            background: -webkit-linear-gradient(orange 90%, gray 100%);
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<ul id="controlDiv">
+    <li onclick="normalCreate()">Normal Create</li>
+    <li onclick="webWorkerCreate()">Web Worker Create</li>
+    <li onclick="removeAllTable()">Clear All</li>
+</ul>
+<script>
+    if(typeof(Worker) != "undefined") {
+        // Yes! Web worker support!
+
+        //firefox可以正常执行
+        //chrome: Uncaught SecurityError: Failed to create a worker: script at '(path)/webWorker.js' cannot be accessed from origin 'null'.
+        //var worker = new Worker("./webWorker.js");
+        //解决方案如下：
+        function worker_function() {
+            var columnCount = 10;
+            //注意：onmessage因为是属性所以是小写的,postMessage因为是方法所以是大写的
+            onmessage = function(event) {
+                var num = parseInt(event.data);
+                var rowCount = num / columnCount;
+                var lastColumnCount = num % columnCount;
+                for(var j=0; j<rowCount; j++) {
+                    var thisColumnCount = rowCount-j < 1 ? lastColumnCount : columnCount;
+                    for(var i=0; i<thisColumnCount; i++) {
+                        //postMessage这里不需要将变量赋值给event,它会自动赋值
+                        postMessage({"i":i, "j":j});
+                    }
+                }
+            }
+        }
+        //会产生一个类似blob:d3958f5c-0777-0845-9dcf-2cb28783acaf 这样的URL字符串,你可以像使用一个普通URL那样使用它,比如用在img.src上。
+        var url = URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'}));
+        var worker = new Worker(url);
+        //释放资源
+        URL.revokeObjectURL(url);
+
+        //注意：onmessage因为是属性所以是小写的,postMessage因为是方法所以是大写的
+        worker.onmessage = function(event) {
+            var i = event.data.i;
+            var j = event.data.j;
+            var table = document.getElementById("table");
+            if(!table) {
+                table = createAndAddTable();
+            }
+            if(i === 0) {
+                table.insertRow(j);
+            }
+            var cell = table.rows[j].insertCell();
+            cell.innerHTML = "(" + i + "," + j + ")"
+        }
+        worker.onerror = function(e){
+            //打印出错消息
+            console.log(e.message);
+            //中断与子线程的联系
+            worker.terminate();
+        }
+
+        //创建并添加table
+        function createAndAddTable() {
+            table = document.createElement("table");
+            table.id = "table";
+            document.body.appendChild(table);
+            return table;
+        }
+
+        //删除body内的所有table
+        function removeAllTable() {
+            var tables = document.getElementsByTagName("table");
+            if(tables && tables.length > 0) {
+                for(var i=tables.length-1; i>=0; i--) {
+                    document.body.removeChild(tables[i]);
+                }
+            }
+        }
+
+        //待创建的单元格数目
+        var cellCount = 1000000;
+
+        function normalCreate() {
+            removeAllTable();
+            var table = createAndAddTable();
+            var columnCount = 10;
+            var rowCount = cellCount / columnCount;
+            var lastColumnCount = cellCount % columnCount;
+            for(var j=0; j<rowCount; j++) {
+                var thisColumnCount = rowCount-j < 1 ? lastColumnCount : columnCount;
+                var row = table.insertRow();
+                for(var i=0; i<thisColumnCount; i++) {
+                    var cell = row.insertCell();
+                    cell.textContent = "(" + i + "," + j + ")"
+                }
+            }
+        }
+
+        function webWorkerCreate() {
+            removeAllTable();
+            worker.postMessage(cellCount);
+        }
+
+    } else {
+        alert("Sorry! No Web Worker support...");
+    }
+</script>
+</body>
+</html>
