@@ -1,19 +1,20 @@
 let superagent = require('superagent');
-let cookie = require('cookie');
 let fs = require('fs')
 const request = require("request")
 const cheerio = require("cheerio")
 const url = require("url");
 const qs = require('querystring');
 const path = require("path")
-let cookies = '';
 
 // 爬取得文章id
-let question = process.argv[2] || 53599347;
+let question = process.argv[2] || 288125263;
 
 // 存放的文件夹
 let background = 'data/' + question || question;
-
+let data = path.join(`./data`)
+if (!fs.existsSync(data)) {
+  fs.mkdirSync(data)
+}
 
 let uri = `https://www.zhihu.com/questions/${question}`;
 const include = "data[*].is_normal,admin_closed_comment,reward_info,is_collapsed,annotation_action,annotation_detail,collapse_reason,is_sticky,collapsed_by,suggest_edit,comment_count,can_comment,content,editable_content,voteup_count,reshipment_settings,comment_permission,created_time,updated_time,review_info,relevant_info,question,excerpt,relationship.is_authorized,is_author,voting,is_thanked,is_nothelp,is_labeled;data[*].mark_infos[*].url;data[*].author.follower_count,badge[*].topics"
@@ -48,6 +49,9 @@ function callback (error, response, body) {
       console.log(imgUrl)
       let nameArr = url.parse(imgUrl).pathname.split('/')
       let name = nameArr[nameArr.length - 1];
+      let temp = name.split('_720w') || []
+      name = temp[0]  + temp[1]
+
       //写入文件
       if (!fs.existsSync(path.join(`./${background}/`))) {
         fs.mkdir(path.join(`./${background}/`), () => {
@@ -63,10 +67,10 @@ function callback (error, response, body) {
   if (item.data.length === 20 && offset < item.paging.totals) {
     getPic(item.paging.next)
   } else {
+    console.log('等待文件保存')
     setTimeout(() => {
-      console.log('等待文件保存')
       process.exit(0);
-    }, 1000 * 20)
+    }, 1000 * 20000)
   }
 }
 
