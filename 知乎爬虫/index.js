@@ -46,7 +46,6 @@ function callback (error, response, body) {
       if (imgUrl == undefined) {
         return
       }
-      console.log(imgUrl)
       let nameArr = url.parse(imgUrl).pathname.split('/')
       let name = nameArr[nameArr.length - 1];
       let temp = name.split('_720w') || []
@@ -75,9 +74,12 @@ function callback (error, response, body) {
 }
 
 function copy (form, to) {
+  let temp = form.split('_720w') || []
+  let url = temp[0]  + temp[1]
+  console.log('获取图片链接：',url)
   var file = fs.createWriteStream(path.resolve(to))
   superagent
-    .get(form)
+    .get(url)
     .pipe(file)
   file.on('finish', function () {
     console.log('文件写入成功:' + to);
