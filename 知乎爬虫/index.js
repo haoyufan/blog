@@ -11,7 +11,7 @@ let question = process.argv[2] || 288125263;
 
 // 存放的文件夹
 let background = 'data/' + question || question;
-let data = path.join(`./data`)
+let data = path.join(__dirname, `./data`)
 if (!fs.existsSync(data)) {
   fs.mkdirSync(data)
 }
@@ -52,8 +52,8 @@ function callback (error, response, body) {
       name = temp[0]  + temp[1]
 
       //写入文件
-      if (!fs.existsSync(path.join(`./${background}/`))) {
-        fs.mkdir(path.join(`./${background}/`), () => {
+      if (!fs.existsSync(path.join(__dirname, `./${background}/`))) {
+        fs.mkdir(path.join(__dirname, `./${background}/`), () => {
           copy(imgUrl, `./${background}/` + name)
         })
       } else {
@@ -77,12 +77,12 @@ function copy (form, to) {
   let temp = form.split('_720w') || []
   let url = temp[0]  + temp[1]
   console.log('获取图片链接：',url)
-  var file = fs.createWriteStream(path.resolve(to))
+  var file = fs.createWriteStream(path.resolve(__dirname, to))
   superagent
     .get(url)
     .pipe(file)
   file.on('finish', function () {
-    console.log('文件写入成功:' + to);
+    console.log('文件写入成功:' + __dirname + to);
   })
 }
 
